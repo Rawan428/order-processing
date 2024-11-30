@@ -1,0 +1,14 @@
+{
+    "type": "postgres",
+    "host": "localhost",
+    "port": 5432,
+    "username": "admin",
+    "password": "12345678r",
+    "database": "ecommerce",
+    "entities":[
+        "src/entity/*.ts"
+      ],
+    "synchronize": true,
+    "logging": true
+  }
+  

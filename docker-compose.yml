@@ -1,0 +1,32 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 12345678r
+      POSTGRES_DB: ecommerce
+    ports:
+      - "5432:5432"
+
+  rabbitmq:
+    image: rabbitmq:management
+    ports:
+      - "5672:5672"
+      - "15672:15672" # Management UI at http://localhost:15672
+
+  app:
+    build: .
+    command: npx ts-node-dev src/server.ts
+    environment:
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: admin
+      DATABASE_PASSWORD: your_postgres_password
+      DATABASE_NAME: ecommerce
+      RABBITMQ_URL: amqp://rabbitmq
+    depends_on:
+      - postgres
+      - rabbitmq
+    ports:
+      - "3000:3000"
